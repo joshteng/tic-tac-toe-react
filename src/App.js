@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 
 class App extends Component {
@@ -161,16 +160,35 @@ class App extends Component {
     return rows;
   };
 
-  displayWinner = () => {
+  displayGameStatus = () => {
     if (this.state.winner) {
       return `Player ${this.state.winner} wins!`;
+    } else if (this.detectDraw()) {
+      return "Draw";
+    } else {
+      return `Player ${this.state.player}'s turn`;
     }
   };
 
-  displayPlayerTurn = () => {
+  detectDraw = () => {
     if (!this.state.winner) {
-      return `Player ${this.state.player}'s turn`;
+      let gameState = this.state.gameState;
+      if (
+        !gameState[0].includes(null) &&
+        !gameState[1].includes(null) &&
+        !gameState[2].includes(null)
+      ) {
+        return true;
+      }
     }
+  };
+
+  resetGame = () => {
+    this.setState({
+      gameState: [[null, null, null], [null, null, null], [null, null, null]],
+      player: "X",
+      winner: null
+    });
   };
 
   render() {
@@ -178,9 +196,11 @@ class App extends Component {
       <div className="App">
         <div className="container">
           <div className="col-md-10 offset-md-1 tic-tac-toe">
-            {this.displayPlayerTurn()}
-            {this.displayWinner()}
+            {this.displayGameStatus()}
             {this.createBoxes()}
+            <button onClick={this.resetGame} className="btn btn-primary">
+              Reset Game
+            </button>
           </div>
         </div>
       </div>

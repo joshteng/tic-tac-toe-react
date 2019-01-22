@@ -111,10 +111,14 @@ class App extends Component {
   };
 
   updateIndicatorState = (row, column) => {
-    const { gameState } = this.state;
+    const gameState = { ...this.state.gameState };
+    // const { gameState } = this.state;
+
+    // console.log(gameState);
 
     if (gameState[row][column] === null) {
       gameState[row][column] = this.state.player;
+      // console.log(this.state.gameState);
       this.setState({ gameState });
       return true;
     } else {
@@ -168,16 +172,14 @@ class App extends Component {
   };
 
   detectDraw = () => {
-    if (!this.state.winner) {
-      const { gameState } = this.state;
+    const { gameState } = this.state;
 
-      if (
-        !gameState[0].includes(null) &&
-        !gameState[1].includes(null) &&
-        !gameState[2].includes(null)
-      ) {
-        return true;
-      }
+    if (
+      !gameState[0].includes(null) &&
+      !gameState[1].includes(null) &&
+      !gameState[2].includes(null)
+    ) {
+      return true;
     }
   };
 

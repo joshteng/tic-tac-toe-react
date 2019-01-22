@@ -48,7 +48,7 @@ class App extends Component {
 
       if (row[0] === "X" && row[1] === "X" && row[2] === "X") {
         return true;
-      } else if (row[0] === "Y" && row[1] === "Y" && row[2] === "Y") {
+      } else if (row[0] === "O" && row[1] === "O" && row[2] === "O") {
         return true;
       }
     }
@@ -64,7 +64,7 @@ class App extends Component {
 
       if (row[0] === "X" && row[1] === "X" && row[2] === "X") {
         return true;
-      } else if (row[0] === "Y" && row[1] === "Y" && row[2] === "Y") {
+      } else if (row[0] === "O" && row[1] === "O" && row[2] === "O") {
         return true;
       }
     }
@@ -90,9 +90,9 @@ class App extends Component {
     ) {
       return true;
     } else if (
-      diagonalOne[0] === "Y" &&
-      diagonalOne[1] === "Y" &&
-      diagonalOne[2] === "Y"
+      diagonalOne[0] === "O" &&
+      diagonalOne[1] === "O" &&
+      diagonalOne[2] === "O"
     ) {
       return true;
     } else if (
@@ -102,9 +102,9 @@ class App extends Component {
     ) {
       return true;
     } else if (
-      diagonalTwo[0] === "Y" &&
-      diagonalTwo[1] === "Y" &&
-      diagonalTwo[2] === "Y"
+      diagonalTwo[0] === "O" &&
+      diagonalTwo[1] === "O" &&
+      diagonalTwo[2] === "O"
     ) {
       return true;
     }
@@ -127,7 +127,7 @@ class App extends Component {
   };
 
   changePlayer = () => {
-    const newPlayer = this.state.player === "X" ? "Y" : "X";
+    const newPlayer = this.state.player === "X" ? "O" : "X";
 
     this.setState({
       player: newPlayer

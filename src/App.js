@@ -15,16 +15,15 @@ class App extends Component {
     if (this.state.winner) {
       return false;
     }
-    if (
-      this.updateIndicatorState(
-        e.target.dataset["row"],
-        e.target.dataset["column"]
-      )
-    ) {
+
+    const updateGameState = this.updateIndicatorState(
+      e.target.dataset["row"],
+      e.target.dataset["column"]
+    );
+
+    if (updateGameState) {
       if (this.detectWinner()) {
-        this.setState({
-          winner: this.state.player
-        });
+        this.setState({ winner: this.state.player });
       } else {
         this.changePlayer();
       }
@@ -72,12 +71,13 @@ class App extends Component {
   };
 
   detectDiagonalWinner = () => {
-    let diagonalOne = [
+    const diagonalOne = [
       this.state.gameState[0][0],
       this.state.gameState[1][1],
       this.state.gameState[2][2]
     ];
-    let diagonalTwo = [
+
+    const diagonalTwo = [
       this.state.gameState[0][2],
       this.state.gameState[1][1],
       this.state.gameState[2][0]
@@ -111,7 +111,7 @@ class App extends Component {
   };
 
   updateIndicatorState = (row, column) => {
-    let gameState = this.state.gameState;
+    const { gameState } = this.state;
 
     if (gameState[row][column] === null) {
       gameState[row][column] = this.state.player;
@@ -123,15 +123,11 @@ class App extends Component {
   };
 
   changePlayer = () => {
-    if (this.state.player === "X") {
-      this.setState({
-        player: "Y"
-      });
-    } else {
-      this.setState({
-        player: "X"
-      });
-    }
+    const newPlayer = this.state.player === "X" ? "Y" : "X";
+
+    this.setState({
+      player: newPlayer
+    });
   };
 
   createBoxes = () => {
@@ -153,6 +149,7 @@ class App extends Component {
           </div>
         );
       }
+
       rows.push(
         <div className="d-flex flex-row justify-content-center">{columns}</div>
       );
@@ -172,7 +169,8 @@ class App extends Component {
 
   detectDraw = () => {
     if (!this.state.winner) {
-      let gameState = this.state.gameState;
+      const { gameState } = this.state;
+
       if (
         !gameState[0].includes(null) &&
         !gameState[1].includes(null) &&
